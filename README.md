@@ -49,11 +49,6 @@ rlvr_group_correlation/
 │   └── final_analysis.py             joins human labels + CompassVerifier + rule verdicts
 ├── jobs/                             Azure ML command job YAMLs, one per pipeline step
 ├── env/                              Azure ML environment specs (CPU / GPU / CPU+torch)
-└── paper/
-    ├── main.tex                      ACL-format paper source
-    ├── tables.tex                    all result tables (\input from main.tex)
-    ├── references.bib
-    └── figures/                      rho_cat by category/policy, degeneracy, router plots
 ```
 
 ## Data outputs (not checked into git — see datastore paths in job YAMLs)
@@ -75,19 +70,9 @@ rlvr_group_correlation/
 - **The 7B comparison is exploratory**, confounded by AWQ quantization vs. the 1.5B run's full precision, and based on a partial corpus (13/50 planned shards).
 - **Gold-set labels are human-adjudicated** by two independent annotators; the router's category-selection rule is fit and evaluated in-sample (no held-out split) — see Limitations in `main.tex`.
 
-## Requirements before compiling the paper
-
-`paper/main.tex` uses the ACL style files, which are not redistributed here.
-Download `acl.sty` and `acl_natbib.bst` from
-[acl-org/acl-style-files](https://github.com/acl-org/acl-style-files) and
-place both next to `main.tex`, then:
-
-```bash
-pdflatex main && bibtex main && pdflatex main && pdflatex main
 ```
 
 ## License / citation
 
 Code and data released for reproducibility. If you use this work, please
-cite both parts of the series (see `paper/references.bib` for the Part 1
-entry `xin2026verifier`).
+cite both parts of the series
