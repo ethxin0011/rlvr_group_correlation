@@ -1,0 +1,36 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage1-02-pilot-generate-500groups
+experiment_name: rlvr-group-correlation
+
+code: ../src
+command: >-
+  python generate.py
+  --prompts ${{inputs.prompt_pool}}/prompts_50k.jsonl
+  --out_dir ${{outputs.rollouts}}
+  --model Qwen/Qwen3-1.7B
+  --model_tag qwen3-1.7b-pilot
+  --k 8
+  --temperature 0.9
+  --top_p 0.95
+  --max_tokens 640
+  --max_model_len 1536
+  --limit 500
+  --shard_size 250
+
+environment: azureml:rlvr-stage1-gpu@latest
+compute: azureml:t4v3
+resources:
+  instance_count: 1
+
+inputs:
+  prompt_pool:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/prompts/
+
+outputs:
+  rollouts:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/rollouts_pilot/

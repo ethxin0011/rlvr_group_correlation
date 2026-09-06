@@ -1,0 +1,20 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage1-01-build-prompts
+experiment_name: rlvr-group-correlation
+
+code: ../src
+command: >-
+  python prompts.py
+  --out ${{outputs.prompt_pool}}/prompts_50k.jsonl
+  --n 50000
+  --deepmath_n 35027
+
+environment: azureml:rlvr-stage1-cpu@latest
+compute: azureml:cpu-audit-cluster
+
+outputs:
+  prompt_pool:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/prompts/

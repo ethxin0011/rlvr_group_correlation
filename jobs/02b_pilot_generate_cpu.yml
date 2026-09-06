@@ -1,0 +1,39 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage1-02b-pilot-generate-CPU-500groups
+experiment_name: rlvr-group-correlation
+
+# CPU fallback for the pilot gate while t4v3 is occupied.
+# Same group-per-row schema as the GPU path, so 03_pilot_gate.yml is unchanged.
+# ralir-v3d-control = E48s_v3 (48 vCPU / 384 GiB) -> 48 threads.
+code: ../src
+command: >-
+  N_THREADS=48
+  python generate_cpu.py
+  --prompts ${{inputs.prompt_pool}}/prompts_50k.jsonl
+  --out_dir ${{outputs.rollouts}}
+  --model Qwen/Qwen2.5-0.5B-Instruct
+  --model_tag qwen2.5-0.5b-cpu-pilot
+  --k 8
+  --temperature 0.9
+  --top_p 0.95
+  --max_tokens 256
+  --limit 300
+  --batch_prompts 8
+  --threads 48
+  --shard_size 25
+
+environment: azureml:rlvr-stage1-cpu-torch@latest
+compute: azureml:ralir-v3d-control
+
+inputs:
+  prompt_pool:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/prompts/
+
+outputs:
+  rollouts:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/rollouts_pilot/

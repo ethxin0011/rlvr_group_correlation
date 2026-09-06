@@ -1,0 +1,41 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage1-05-full-generate-qwen2.5-7b-awq-25k
+experiment_name: rlvr-group-correlation
+
+# STRONG POLICY of the weak/strong pair (H5).
+# Qwen2.5-7B-Instruct fp16 ~15.2 GB does NOT fit a 16 GB T4 with a KV cache.
+# We use the official AWQ int4 build (~5.6 GB). This is the POLICY under study,
+# not the measuring instrument, so quantisation is acceptable -- but it MUST be
+# disclosed in the paper's Setup section. Verifiers are NEVER quantised.
+code: ../src
+command: >-
+  python generate.py
+  --prompts ${{inputs.prompt_pool}}/prompts_50k.jsonl
+  --out_dir ${{outputs.rollouts}}
+  --model Qwen/Qwen2.5-7B-Instruct-AWQ
+  --model_tag qwen2.5-7b-awq
+  --quantization awq
+  --k 8
+  --temperature 0.9
+  --top_p 0.95
+  --max_tokens 640
+  --max_model_len 1536
+  --start 25000
+  --limit 50000
+  --shard_size 500
+
+environment: azureml:rlvr-stage1-gpu@latest
+compute: azureml:t4v3
+
+inputs:
+  prompt_pool:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/prompts/
+
+outputs:
+  rollouts:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/rollouts/

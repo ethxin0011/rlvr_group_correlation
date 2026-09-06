@@ -1,0 +1,34 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage3-10-compass-verify-4k
+experiment_name: rlvr-group-correlation
+
+# BUDGET-CAPPED CompassVerifier-3B pass. ~4000 traces, batched with 8-token
+# max output (A/B/C judgment) -- much cheaper per-call than the k=8 rollout
+# generation jobs. Resumable: re-running skips group_id::cid pairs already
+# present in the output file.
+code: ../src
+command: >-
+  python compass_verify.py
+  --sample_csv ${{inputs.sample}}/compass_sample.csv
+  --out ${{outputs.verdicts}}/compass_verdicts.jsonl
+  --model opencompass/CompassVerifier-3B
+  --backend vllm
+  --max_model_len 1024
+  --gpu_mem_util 0.85
+  --batch_size 200
+
+environment: azureml:rlvr-stage1-gpu@latest
+compute: azureml:t4v3
+
+inputs:
+  sample:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/compass_sample/
+
+outputs:
+  verdicts:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/compass_verdicts/

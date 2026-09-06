@@ -1,0 +1,36 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage4-11-FINAL-ANALYSIS
+experiment_name: rlvr-group-correlation
+
+# Joins human labels + CompassVerifier judgments + rule verdicts into the
+# paper's reported numbers: IAA, per-category accuracy, real 3-way
+# disagreement, category-router evaluation, cost comparison vs appeals.
+# CPU only. Depends on: gold CSV (human-labeled), compass_verdicts.jsonl
+# (job 10 output).
+code: ../src
+command: >-
+  python final_analysis.py
+  --gold_csv ${{inputs.gold}}/gold_set_1p5b.csv
+  --compass_verdicts ${{inputs.compass}}/compass_verdicts.jsonl
+  --out ${{outputs.report}}/final_report.json
+  --min_cat_n 25
+
+environment: azureml:rlvr-stage1-cpu@latest
+compute: azureml:cpu-audit-cluster
+
+inputs:
+  gold:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/gold_labeled/
+  compass:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/compass_verdicts/
+
+outputs:
+  report:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/final/

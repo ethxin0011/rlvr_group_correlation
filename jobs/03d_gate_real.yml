@@ -1,0 +1,31 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage1-03d-GATE-real-corpus
+experiment_name: rlvr-group-correlation
+
+# Gate against the REAL corpus shards as they land, scoped to the weak policy.
+# Run once ~2 shards (1000 groups) exist. Job 04 keeps running regardless.
+code: ../src
+command: >-
+  python pilot_gate.py
+  --rollouts ${{inputs.rollouts}}
+  --out ${{outputs.gate}}/gate_report.json
+  --only_model qwen2.5-1.5b
+  --min_mixed 0.30
+  --max_cat_share 0.98
+  --min_disagree 0.02
+
+environment: azureml:rlvr-stage1-cpu@latest
+compute: azureml:cpu-audit-cluster
+
+inputs:
+  rollouts:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/rollouts/
+
+outputs:
+  gate:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/gate/

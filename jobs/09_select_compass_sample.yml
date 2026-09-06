@@ -1,0 +1,27 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage3-09-select-compass-sample
+experiment_name: rlvr-group-correlation
+
+code: ../src
+command: >-
+  python select_compass_sample.py
+  --gold_csv ${{inputs.gold}}/gold_set_1p5b.csv
+  --out ${{outputs.sample}}/compass_sample.csv
+  --budget_n 4000
+  --disagreement_frac 0.7
+
+environment: azureml:rlvr-stage1-cpu@latest
+compute: azureml:cpu-audit-cluster
+
+inputs:
+  gold:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/gold/
+
+outputs:
+  sample:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/compass_sample/

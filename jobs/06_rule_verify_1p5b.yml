@@ -1,0 +1,26 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage2-06-rule-verify-1p5b
+experiment_name: rlvr-group-correlation
+
+code: ../src
+command: >-
+  python rule_verify.py
+  --rollouts ${{inputs.rollouts}}
+  --out_dir ${{outputs.verdicts}}
+  --only_model qwen2.5-1.5b
+
+environment: azureml:rlvr-stage1-cpu@latest
+compute: azureml:cpu-audit-cluster
+
+inputs:
+  rollouts:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/rollouts/
+
+outputs:
+  verdicts:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/verdicts_1p5b/

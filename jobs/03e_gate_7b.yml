@@ -1,0 +1,31 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage1-03e-GATE-7b-H5-check
+experiment_name: rlvr-group-correlation
+
+# H5 check: does rho_cat rise with policy strength (7B vs the locked 1.5B
+# reading of 0.5298, CI [0.4998, 0.5595])? Run once job 05 has ~4-8 shards.
+code: ../src
+command: >-
+  python pilot_gate.py
+  --rollouts ${{inputs.rollouts}}
+  --out ${{outputs.gate}}/gate_report_7b.json
+  --only_model qwen2.5-7b-awq
+  --min_mixed 0.30
+  --max_cat_share 0.98
+  --min_disagree 0.02
+
+environment: azureml:rlvr-stage1-cpu@latest
+compute: azureml:cpu-audit-cluster
+
+inputs:
+  rollouts:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/rollouts/
+
+outputs:
+  gate:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/gate/

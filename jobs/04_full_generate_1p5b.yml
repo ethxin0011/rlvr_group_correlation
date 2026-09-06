@@ -1,0 +1,39 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+type: command
+display_name: stage1-04-full-generate-qwen2.5-1.5b-25k
+experiment_name: rlvr-group-correlation
+
+# WEAK POLICY of the weak/strong pair (H5: rho_cat scales with policy strength).
+# Qwen2.5 family chosen because vllm 0.6.3 / transformers 4.45 in the registered
+# GPU environment predate Qwen3 and cannot read a `qwen3` model config.
+# Qwen2.5-1.5B-Instruct fp16 ~3.1 GB -> comfortable on a 16 GB T4.
+code: ../src
+command: >-
+  python generate.py
+  --prompts ${{inputs.prompt_pool}}/prompts_50k.jsonl
+  --out_dir ${{outputs.rollouts}}
+  --model Qwen/Qwen2.5-1.5B-Instruct
+  --model_tag qwen2.5-1.5b
+  --k 8
+  --temperature 0.9
+  --top_p 0.95
+  --max_tokens 640
+  --max_model_len 1536
+  --start 0
+  --limit 25000
+  --shard_size 500
+
+environment: azureml:rlvr-stage1-gpu@latest
+compute: azureml:t4v3
+
+inputs:
+  prompt_pool:
+    type: uri_folder
+    mode: ro_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/prompts/
+
+outputs:
+  rollouts:
+    type: uri_folder
+    mode: rw_mount
+    path: azureml://datastores/workspaceblobstore/paths/rlvr_group_corr/rollouts/
