@@ -1,0 +1,180 @@
+{
+  "n_gold_rows_total": 5556,
+  "n_human_labeled": 5556,
+  "inter_annotator_agreement": {
+    "n_double_annotated_with_both_labels": 200,
+    "raw_agreement": 1.0,
+    "cohens_kappa": 1.0,
+    "krippendorff_alpha": 1.0
+  },
+  "per_category": {
+    "small_numeric": {
+      "n_human_labeled": 900,
+      "n_compass_covered": 422,
+      "accuracy_vs_human": {
+        "strict": 0.7633,
+        "loose": 0.77,
+        "numeric": 0.9918,
+        "flex": 0.9918,
+        "compass": 0.9787
+      },
+      "best_verifier": "numeric",
+      "n_rule_compass_human_all_present": 422,
+      "three_way_disagreement_rate": 0.0379
+    },
+    "latex_text_unit": {
+      "n_human_labeled": 340,
+      "n_compass_covered": 129,
+      "accuracy_vs_human": {
+        "strict": 0.6029,
+        "loose": 0.6029,
+        "numeric": 1.0,
+        "flex": 1.0,
+        "compass": 0.9457
+      },
+      "best_verifier": "numeric",
+      "n_rule_compass_human_all_present": 129,
+      "three_way_disagreement_rate": 0.5116
+    },
+    "symbolic_other": {
+      "n_human_labeled": 900,
+      "n_compass_covered": 400,
+      "accuracy_vs_human": {
+        "strict": 0.6956,
+        "loose": 0.94,
+        "numeric": 0.9487,
+        "flex": 0.913,
+        "compass": 0.96
+      },
+      "best_verifier": "compass",
+      "n_rule_compass_human_all_present": 400,
+      "three_way_disagreement_rate": 0.07
+    },
+    "latex_frac": {
+      "n_human_labeled": 900,
+      "n_compass_covered": 403,
+      "accuracy_vs_human": {
+        "strict": 0.72,
+        "loose": 0.9533,
+        "numeric": 0.9868,
+        "flex": 0.9868,
+        "compass": 0.9504
+      },
+      "best_verifier": "numeric",
+      "n_rule_compass_human_all_present": 403,
+      "three_way_disagreement_rate": 0.0868
+    },
+    "large_numeric": {
+      "n_human_labeled": 648,
+      "n_compass_covered": 177,
+      "accuracy_vs_human": {
+        "strict": 0.8688,
+        "loose": 0.912,
+        "numeric": 0.9763,
+        "flex": 0.9763,
+        "compass": 0.9492
+      },
+      "best_verifier": "numeric",
+      "n_rule_compass_human_all_present": 177,
+      "three_way_disagreement_rate": 0.1356
+    },
+    "trailing_whitespace": {
+      "n_human_labeled": 324,
+      "n_compass_covered": 110,
+      "accuracy_vs_human": {
+        "strict": 0.9444,
+        "loose": 0.9444,
+        "numeric": 0.9677,
+        "flex": 0.9677,
+        "compass": 0.8909
+      },
+      "best_verifier": "numeric",
+      "n_rule_compass_human_all_present": 110,
+      "three_way_disagreement_rate": 0.1818
+    },
+    "interval_or_tuple": {
+      "n_human_labeled": 728,
+      "n_compass_covered": 416,
+      "accuracy_vs_human": {
+        "strict": 0.6346,
+        "loose": 0.9602,
+        "numeric": null,
+        "flex": 0.9333,
+        "compass": 0.9399
+      },
+      "best_verifier": "loose",
+      "n_rule_compass_human_all_present": 416,
+      "three_way_disagreement_rate": 0.0793
+    },
+    "trailing_period": {
+      "n_human_labeled": 136,
+      "n_compass_covered": 120,
+      "accuracy_vs_human": {
+        "strict": 0.8382,
+        "loose": 0.8382,
+        "numeric": 0.75,
+        "flex": 0.75,
+        "compass": 0.8667
+      },
+      "best_verifier": "compass",
+      "n_rule_compass_human_all_present": 120,
+      "three_way_disagreement_rate": 0.3083
+    },
+    "latex_sqrt": {
+      "n_human_labeled": 680,
+      "n_compass_covered": 190,
+      "accuracy_vs_human": {
+        "strict": 0.8897,
+        "loose": 0.9676,
+        "numeric": 0.9167,
+        "flex": 0.9167,
+        "compass": 0.9684
+      },
+      "best_verifier": "compass",
+      "n_rule_compass_human_all_present": 190,
+      "three_way_disagreement_rate": 0.0632
+    }
+  },
+  "router_evaluation": {
+    "router_choice_by_category": {
+      "small_numeric": "numeric",
+      "latex_text_unit": "numeric",
+      "symbolic_other": "compass",
+      "latex_frac": "numeric",
+      "large_numeric": "numeric",
+      "trailing_whitespace": "numeric",
+      "interval_or_tuple": "loose",
+      "trailing_period": "compass",
+      "latex_sqrt": "compass"
+    },
+    "single_verifier_global_accuracy": {
+      "strict": {
+        "accuracy": 0.7588,
+        "n_covered": 5556
+      },
+      "loose": {
+        "accuracy": 0.8945,
+        "n_covered": 5556
+      },
+      "numeric": {
+        "accuracy": 0.9819,
+        "n_covered": 1717
+      },
+      "flex": {
+        "accuracy": 0.9738,
+        "n_covered": 2025
+      },
+      "compass_alone": {
+        "accuracy": 0.9493,
+        "n_covered": 2367
+      }
+    },
+    "router_global_accuracy": {
+      "accuracy": 0.9705,
+      "n_covered": 3088
+    },
+    "n_traces_router_sends_to_compass": 1716,
+    "n_traces_appeals_baseline_would_send_to_compass": 1328,
+    "router_cost_ratio_vs_appeals": 1.2922
+  }
+}
