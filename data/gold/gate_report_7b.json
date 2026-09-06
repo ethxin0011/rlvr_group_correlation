@@ -1,0 +1,91 @@
+{
+  "n_groups": 6500,
+  "n_files": 63,
+  "models_present": {
+    "qwen2.5-7b-awq": 6500
+  },
+  "gate1_mixed_group_rate": 0.2977,
+  "gate1_threshold": 0.3,
+  "gate1_pass": false,
+  "gate2_mean_primary_cat_share": 0.7548,
+  "gate2_fully_uniform_cat_rate": 0.3294,
+  "gate2_threshold_max_share": 0.98,
+  "gate2_pass": true,
+  "gate3_verifier_disagreement_rate": 0.0375,
+  "gate3_disagree_pairs_counted": 17858,
+  "gate3_comparison": "strict_vs_flex",
+  "gate3_flex_inapplicable_group_rate": 0.7575,
+  "gate3_threshold": 0.02,
+  "gate3_pass": true,
+  "ALL_GATES_PASS": false,
+  "preliminary_rho_cat_proxy": 0.6567,
+  "preliminary_rho_ci95": [
+    0.6204,
+    0.6873
+  ],
+  "kish_n_eff_of_k": 1.429,
+  "k_bar": 8.0,
+  "rho_by_primary_cat": {
+    "small_numeric": {
+      "n_groups": 2128,
+      "icc": 0.5236,
+      "n_eff": 1.715
+    },
+    "symbolic_other": {
+      "n_groups": 2106,
+      "icc": 0.7145,
+      "n_eff": 1.333
+    },
+    "latex_frac": {
+      "n_groups": 1141,
+      "icc": 0.6082,
+      "n_eff": 1.522
+    },
+    "latex_text_unit": {
+      "n_groups": 509,
+      "icc": 0.0,
+      "n_eff": 8.0
+    },
+    "interval_or_tuple": {
+      "n_groups": 43,
+      "icc": 0.6966,
+      "n_eff": 1.361
+    },
+    "trailing_whitespace": {
+      "n_groups": 404,
+      "icc": 0.094,
+      "n_eff": 4.825
+    },
+    "large_numeric": {
+      "n_groups": 41,
+      "icc": 0.4286,
+      "n_eff": 2.0
+    },
+    "latex_sqrt": {
+      "n_groups": 97,
+      "icc": 0.5942,
+      "n_eff": 1.551
+    }
+  },
+  "primary_cat_distribution": {
+    "small_numeric": 16776,
+    "symbolic_other": 16046,
+    "latex_frac": 8669,
+    "trailing_whitespace": 4335,
+    "latex_text_unit": 3790,
+    "latex_sqrt": 909,
+    "trailing_period": 513,
+    "large_numeric": 350,
+    "interval_or_tuple": 344,
+    "degree_percent": 214,
+    "set_or_list": 49,
+    "scientific_notation": 4,
+    "internal_whitespace": 1
+  },
+  "per_model_mixed_rate": {
+    "qwen2.5-7b-awq": 0.2977
+  },
+  "per_model_rho": {
+    "qwen2.5-7b-awq": 0.6567
+  }
+}

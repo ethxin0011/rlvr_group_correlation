@@ -1,0 +1,97 @@
+{
+  "n_groups": 24998,
+  "n_files": 59,
+  "models_present": {
+    "qwen2.5-1.5b": 24998
+  },
+  "gate1_mixed_group_rate": 0.3521,
+  "gate1_threshold": 0.3,
+  "gate1_pass": true,
+  "gate2_mean_primary_cat_share": 0.6976,
+  "gate2_fully_uniform_cat_rate": 0.2279,
+  "gate2_threshold_max_share": 0.98,
+  "gate2_pass": true,
+  "gate3_verifier_disagreement_rate": 0.0261,
+  "gate3_disagree_pairs_counted": 69042,
+  "gate3_comparison": "strict_vs_flex",
+  "gate3_flex_inapplicable_group_rate": 0.808,
+  "gate3_threshold": 0.02,
+  "gate3_pass": true,
+  "ALL_GATES_PASS": true,
+  "preliminary_rho_cat_proxy": 0.5298,
+  "preliminary_rho_ci95": [
+    0.4998,
+    0.5595
+  ],
+  "kish_n_eff_of_k": 1.699,
+  "k_bar": 8.0,
+  "rho_by_primary_cat": {
+    "latex_text_unit": {
+      "n_groups": 2444,
+      "icc": -0.0005,
+      "n_eff": 8.0
+    },
+    "latex_frac": {
+      "n_groups": 3826,
+      "icc": 0.4687,
+      "n_eff": 1.869
+    },
+    "small_numeric": {
+      "n_groups": 8648,
+      "icc": 0.381,
+      "n_eff": 2.182
+    },
+    "symbolic_other": {
+      "n_groups": 7550,
+      "icc": 0.5863,
+      "n_eff": 1.567
+    },
+    "trailing_whitespace": {
+      "n_groups": 1723,
+      "icc": 0.0934,
+      "n_eff": 4.838
+    },
+    "large_numeric": {
+      "n_groups": 243,
+      "icc": 0.6603,
+      "n_eff": 1.423
+    },
+    "latex_sqrt": {
+      "n_groups": 270,
+      "icc": 0.6851,
+      "n_eff": 1.38
+    },
+    "interval_or_tuple": {
+      "n_groups": 147,
+      "icc": 0.6642,
+      "n_eff": 1.416
+    },
+    "degree_percent": {
+      "n_groups": 109,
+      "icc": -0.0012,
+      "n_eff": 8.0
+    }
+  },
+  "primary_cat_distribution": {
+    "small_numeric": 66833,
+    "symbolic_other": 55632,
+    "latex_frac": 29497,
+    "trailing_whitespace": 20031,
+    "latex_text_unit": 17595,
+    "latex_sqrt": 3125,
+    "trailing_period": 2911,
+    "large_numeric": 2021,
+    "interval_or_tuple": 1263,
+    "degree_percent": 829,
+    "set_or_list": 203,
+    "scientific_notation": 25,
+    "internal_whitespace": 18,
+    "trailing_newline": 1
+  },
+  "per_model_mixed_rate": {
+    "qwen2.5-1.5b": 0.3521
+  },
+  "per_model_rho": {
+    "qwen2.5-1.5b": 0.5298
+  }
+}
