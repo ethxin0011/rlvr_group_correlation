@@ -29,9 +29,9 @@ aggregate error rate in Part 1.
 
 | Stage | Purpose | Compute |
 |---|---|---|
-| 1 | Prompt pool + k=8 rollout generation + pilot gate | GPU (T4) + CPU |
+| 1 | Prompt pool + k=8 rollout generation + pilot gate | GPU + CPU |
 | 2 | Rule-based verification, advantage-replay, gold-set sampling | CPU only |
-| 3 | Model-based verification (CompassVerifier-3B) on a budget-capped sample | GPU (T4) |
+| 3 | Model-based verification (CompassVerifier-3B) on a budget-capped sample | GPU |
 | 4 | Join human labels + model verdicts + rule verdicts into final results | CPU only |
 
 Run order: `01 → 02/02b → 03 (gate) → 04/05 (full generation) → 06 → 07 →
