@@ -15,7 +15,8 @@ This repository contains the full code pipeline and paper source for a research 
 Group-based RLVR methods like GRPO sample multiple completions per prompt and score each with an automatic verifier, computing a training signal from the group's relative rewards. This project tests whether those per-completion verifier judgments are actually independent, as most existing methods assume, or whether they're correlated because completions to the same prompt tend to share answer format. The project measures this directly on real generated rollouts, breaks the correlation down by answer category, and evaluates whether a lightweight category-aware verifier selection can help.
 
 
-
+**Data**
+Final aggregated data results are uploaded and accessible here for this experiment result: https://github.com/ethxin0011/rlvr_group_correlation/tree/main/data
 
 **Headline result:** pooled within-group ICC ρ = 0.530 (95% CI
 [0.500, 0.560]) on 24,998 real k=8 rollout groups from Qwen2.5-1.5B —
